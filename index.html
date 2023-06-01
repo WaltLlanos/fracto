@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="js/jquery.min.js"></script>
+    <title>FRACTO</title>
+    <!-- BOOTSTRAP -->
+    <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css">
+    <script href="bootstrap/dist/js/bootstrap.js"></script>
+    <script href="bootstrap/dist/js/bootstrap.min.js"></script>
+    <script href="bootstrap/js/dist/util.js"></script>
+    <script href="bootstrap/js/dist/collapse.js"></script>
+    <script href="bootstrap/js/dist/carousel.js"></script>
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="fontawesome/css/fontawesome.css">
+    <link rel="stylesheet" href="fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="fontawesome/css/all.css">
+    <link rel="stylesheet" href="fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="fontawesome/css/brands.css">
+    <link rel="stylesheet" href="fontawesome/css/brands.min.css">
+    <link rel="stylesheet" href="fontawesome/css/regular.css">
+    <link rel="stylesheet" href="fontawesome/css/regular.min.css">
+    <link rel="stylesheet" href="fontawesome/css/solid.css">
+    <link rel="stylesheet" href="fontawesome/css/solid.min.css">
+    <link rel="stylesheet" href="fontawesome/css/svg-with-js.css">
+    <link rel="stylesheet" href="fontawesome/css/svg-with-js.min.css">
+    <link rel="stylesheet" href="fontawesome/css/v4-shims.css">
+    <link rel="stylesheet" href="fontawesome/css/v4-shims.min.css">
+    <!-- ANIMATED -->
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/animsition.min.css">
+    <!-- FUENTES -->
+    <link rel="stylesheet" href="css/fuentes/fuente.css">
+    <!-- ESTILOS -->
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- SCRIPT -->
+    <script type="text/javascript" src="js/script.js"></script>
+</head>
+<body>
+    <div class="col-12 cuerpo">
+        <div class="welcome text-center" id="section-1">
+            <div class="col-12 sin-padding">
+                <div class="logo-page">
+                    <img src="images/LOGO_1.png">
+                </div>
+                <div class="text-page" id="screen-1">
+                    <h6>¡Hola!</h6>
+                    <p>A partir de hoy, cuando vas con tus amigos a comer ya no tienes que hacer cálculos penosos dividiendo la cuenta con la calculadora del celular.</p>
+                </div>
+                <div class="col-12 sin-padding" id="screen-2" style="display:none;">
+                    <div class="text-page">
+                        <p>Empieza por crear tu mesa, escribe un nombre personalizado y verifica que esté disponible:</p>
+                    </div>
+                    <div class="link-mesa">
+                        <label>http://www.fracto.app/</label>
+                        <form onsubmit="addMesa();" class="form-nameMesa" id="form-nameMesa" method="post" action="AddMesa.php" style="display:inline;">
+                            <input autocomplete="off" type="text" placeholder="MiMesa" name="nombreMesa" id="nombreMesa" required>
+                            <input type="submit" class="btn-sub" id="btn-mesa" style="display:none;">
+                        </form>
+                        <div id="verificando" style="display:none;"><img src="images/loader.gif" style="width:50px;"></div>
+                        <div id="exito" style="display:none;">Éxito ✓</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 secciones sin-padding" id="section-2" style="display:none;">
+            <div class="top col-12 text-center">
+                <div class="row">
+                    <div class="col-2">
+                        <div class="logo"><img src="images/LOGO_1_WHITE.png"></div>
+                    </div>
+                    <div class="col-8 titulo-mesa">
+                        <p onclick="opcMesa();" class="respuestaMesa">/</p>
+                    </div>
+                    <div class="col-2">
+                        <div class="image-user"><img src="images/default.png"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 content text-center">
+                <div class="container sin-padding">
+                    <div class="row">
+                        <div class="col-12 share">
+                            <h6>!Excelente!, ya tienes una mesa.</h6>
+                            <p>Invita a tus amigos a tu mesa compartiendo el siguiente link:</p>
+                            <div class="col-12 sin-padding">
+                                <div class="share-link"><p class="respuestaMesa" onclick="copiado('copyLink');" id="copyLink">https://iprog.site/WebApp/invitados.php?n=</p></div>
+                                
+                            </div>
+                            <p class="copiado" style="display:none;">Enlace copiado!</p>
+                            <p>Mientras ellos se sientan contigo, puedes suministrarnos los siguientes datos:</p>
+                        </div>
+                        <div class="col-12 information">
+                            <form onsubmit="addClient();" class="form-clientMesa" id="form-clientMesa" method="post" action="AddClient.php">
+                                <h5>Tu información:</h5>
+                                <hr>
+                                <p>¿Cual es tu nombre?</p>
+                                <input type="hidden" value="si" id="jefe_mesa">
+                                <input type="hidden" value="" id="id_mesa">
+                                <input autocomplete="off" type="text" placeholder="Tu nombre" name="nombre" id="nombre" required>
+                                <p>Escoge tu ávatar para identificarte:</p>
+                                <ul class="list-avatar">
+                                    <li><input class="select-profiles avatar1" type="radio" name="avatar" value="avatar1" required></li>
+                                    <li><input class="select-profiles avatar2" type="radio" name="avatar" value="avatar2" required></li>
+                                    <li><input class="select-profiles avatar3" type="radio" name="avatar" value="avatar3" required></li>
+                                    <li><input class="select-profiles avatar4" type="radio" name="avatar" value="avatar4" required></li>
+                                </ul>
+                                <p>¿Como prefieres realizar tu pago hoy?</p>
+                                <ul class="list-pagos">
+                                    <li><input class="select-method method1" type="radio" name="method" value="method1" required></li>
+                                    <li><input class="select-method method2" type="radio" name="method" value="method2" required></li>
+                                    <li><input class="select-method method3" type="radio" name="method" value="method3" required></li>
+                                    <li><input class="select-method method4" type="radio" name="method" value="method4" required></li>
+                                </ul>
+                                <input type="submit" id="submitClient" style="display:none;">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 secciones sin-padding" id="section-3" style="display:none;">
+            <div class="top col-12 text-center">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="logo"><img src="images/LOGO_1_WHITE.png"></div>
+                    </div>
+                    <div class="col-6 titulo-mesa">
+                        <p onclick="opcionesCompartir();" class="respuestaMesa">/</p>
+                    </div>
+                    <div class="col-3">
+                        <div class="image-user"><img src="images/default.png"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 content text-center float-left">
+                <h5 class="tlt-h5">¡Tienes compañía!</h5>
+                <p class="col-12 sin-padding float-left">Verifica que nadie haga falta antes de continuar</p>
+                <div class="list-check">
+                    <div class="top-listCheck float-left">
+                        <h5>Tu Mesa:</h5>
+                        <div onclick="popAddFriends();" class="icon-addFriends">
+                            <img src="images/AGREGARMANUALAMESA.png">
+                        </div>
+                    </div>
+                    <ul id="datagrid">
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 secciones sin-padding" id="section-4" style="display:none;">
+            <div class="top col-12 text-center">
+                <div class="row">
+                    <div class="col-2">
+                        <div class="logo"><img src="images/LOGO_1_WHITE.png"></div>
+                    </div>
+                    <div class="col-8 titulo-mesa">
+                        <p class="respuestaMesa" onclick="opcionesCompartir();">/</p>
+                    </div>
+                    <div class="col-2">
+                        <div class="image-user"><img src="images/default.png"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 content text-center float-left">
+                <div class="fraccion">
+                    <div class="col-12 information float-left">
+                        <h5 class="col-6">Tu Fracción:</h5><span class="resultFactura price">$0</span>
+                        <hr>
+                        <form class="formFactura float-left" id="form-consultar-factura" onclick="contandoFactura();" style="width:100%;">
+                            <div class="col-12 float-left">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <ul class="in-fraccion">
+                                            <li><img src="images/ENTRADA.png"><label>Entrada:</label></li>
+                                            <li><img src="images/PLATO_FUERTE.png"><label>Plato Fuerte:</label></li>
+                                            <li><img src="images/BEBIDAS.png"><label>Bebida:</label></li>
+                                            <li><img src="images/POSTRE.png"><label>Postre:</label></li>
+                                            <li><img src="images/PROPINA.png"><label>Propina:</label></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-6">
+                                        <form class="result-fraccion">
+                                            <input class="text text-right" min="0" id="entrada" type="number" value="" placeholder="$0">
+                                            <input class="text text-right" min="0" id="plato" type="number" value="" placeholder="$0">
+                                            <input class="text text-right" min="0" id="bebidas" type="number" value="" placeholder="$0">
+                                            <input class="text text-right" min="0" id="postre" type="number" value="" placeholder="$0">
+                                            <div class="propina">
+                                                <div class="porcentaje"><img src="images/FACTURA.png"></div>
+                                                <input class="text text-right" min="0" id="propina" value="" type="number" placeholder="$0">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-12 information float-left">
+                        <h5 class="col-6">Tu Billetera:</h5><span class="price totalBilletera">$0</span>
+                        <hr>
+                        <form class="formFactura float-left" id="form-consultar-billetera" onclick="contandoBilletera();" style="width:100%;">
+                        <ul class="list-billetera">
+                            <li><img src="images/BILLETES.png"><input value="0" min="0" id="conteo1" class="inpBilletes" type="number"></li>
+                            <li><img src="images/BILLETES.png"><input value="0" min="0" id="conteo2" class="inpBilletes" type="number"></li>
+                            <li><img src="images/BILLETES.png"><input value="0" min="0" id="conteo3" class="inpBilletes" type="number"></li>
+                            <li><img src="images/BILLETES.png"><input value="0" min="0" id="conteo4" class="inpBilletes" type="number"></li>
+                        </ul>
+                        <ul class="list-billetera">
+                            <li><img src="images/BILLETES.png"><input value="0" min="0" id="conteo5" class="inpBilletes" type="number"></li>
+                            <li><img src="images/BILLETES.png"><input value="0" min="0" id="conteo6" class="inpBilletes" type="number"></li>
+                            <li><img src="images/BILLETES.png"><input value="0" min="0" id="conteo7" class="inpBilletes" type="number"></li>
+                            <li><img src="images/MONEDAS.png"><input id="monedas" class="inpBilletes" type="checkbox" value="si" onclick="valorMoneda();"></li>
+                        </ul>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 secciones sin-padding" id="section-5" style="display:none;">
+            <div class="top col-12 text-center">
+                <div class="row">
+                    <div class="col-2">
+                        <div class="logo"><img src="images/LOGO_1_WHITE.png"></div>
+                    </div>
+                    <div class="col-8 titulo-mesa">
+                        <p class="respuestaMesa">/</p>
+                    </div>
+                    <div class="col-2">
+                        <div class="image-user"><img src="images/default.png"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 content text-center float-left">
+                <div class="list-check">
+                    <h6>¿Pagarás por alguien mas?</h6>
+                    <ul class="list-payup" id="list-payup">
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 secciones sin-padding" id="section-6" style="display:none;">
+            <div class="top col-12 text-center">
+                <div class="row">
+                    <div class="col-2">
+                        <div class="logo"><img src="images/LOGO_1_WHITE.png"></div>
+                    </div>
+                    <div class="col-8 titulo-mesa">
+                        <p class="respuestaMesa">/</p>
+                    </div>
+                    <div class="col-2">
+                        <div class="image-user"><img src="images/default.png"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 content text-center float-left">
+                <div class="posCuadro">
+                    <p>Ahora, déjanos saber los siguientes datos:</p>
+                    <div class="col-12 float-left information">
+                        <h5 class="col-7">Tu Factura</h5>
+                        <span class="price totalFactura">$</span>
+                        <hr>
+                        <div class="col-12 sin-padding float-left">
+                            <div class="row">
+                                <div class="col-6">
+                                    <ul class="in-fraccion">
+                                        <li><label>Valor Total Factura</label></li>
+                                        <li><label>Valor Propina Factura</label></li>
+                                    </ul>
+                                </div>
+                                <div class="col-6">
+                                    <form class="result-fraccion">
+                                        <input class="totalFactura" type="text" placeholder="$0" disabled>
+                                        <input class="del-factura totalPropina" type="text" placeholder="$0" disabled>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 float-left information">
+                        <h5 class="col-7">Tu Mesa</h5>
+                        <span class="price">$98.600</span>
+                        <ul class="list-payup scrollApp" style="max-height:300px;">
+                            <li>
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div>
+                                                <img class="img-pay" src="images/AVATAR_2.png">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <p>Evelin Artwork</p>
+                                        </div>
+                                        <div class="col-3 sin-padding">
+                                            <div class="result-friend">
+                                                <div class="txt">
+                                                    <span>$10.700</span>
+                                                    <span>$1.000</span>
+                                                    <span class="total">$14.700</span>
+                                                </div>
+                                                <div class="img-method">
+                                                    <img class="img-pay" src="images/EFECTIVO.png">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div>
+                                                <img class="img-pay" src="images/AVATAR_4.png">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <p>Emma Rodríguez</p>
+                                        </div>
+                                        <div class="col-3 sin-padding">
+                                            <div class="result-friend">
+                                                <div class="txt">
+                                                    <span>$20.700</span>
+                                                    <span>$1.500</span>
+                                                    <span class="total">$21.500</span>
+                                                </div>
+                                                <div class="img-method">
+                                                    <img class="img-pay" src="images/TARJETA.png">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="Queen">
+                                                <img class="img-pay" src="images/AVATAR_2.png">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <p>Luisa Martín</p>
+                                        </div>
+                                        <div class="col-3 sin-padding">
+                                            <div class="result-friend">
+                                                <div class="txt">
+                                                    <span>$10.700</span>
+                                                    <span>$1.000</span>
+                                                    <span class="total">$14.700</span>
+                                                </div>
+                                                <div class="img-method">
+                                                    <img class="img-pay" src="images/EFECTIVO.png">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="Queen">
+                                                <img class="img-pay" src="images/AVATAR_2.png">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <p>Evelin Artwork</p>
+                                        </div>
+                                        <div class="col-3 sin-padding">
+                                            <div class="result-friend">
+                                                <div class="txt">
+                                                    <span>$10.700</span>
+                                                    <span>$1.000</span>
+                                                    <span class="total">$14.700</span>
+                                                </div>
+                                                <div class="img-method">
+                                                    <img class="img-pay" src="images/EFECTIVO.png">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="full fixed pop-share text-center" id="pop-mesa" style="display:none;">
+            <div class="opc-share" style="display:;">
+                <p onclick="opcionesCompartir();">Compartir Mesa</p>
+                <hr>
+                <p onclick="confirmDelete();" class="delete">Eliminar Mesa</p>
+            </div>
+            <div class="delete-mesa" style="display:none;">
+                <h6>Eliminar Mesa</h6>
+                <p>¿Estas seguro que quieres eliminar tu mesa?<br>Es posible que dentro de 24h no puedas crear una con el mismo nombre.</p>
+                
+                <button onclick="defaultS();" class="btn-opciones" type="button">Conservar</button>
+                <button onclick="deleteMesa();" class="btn-opciones delete" type="button">eliminar</button>
+            </div>
+        </div>
+        <div class="fixed popup-friend full text-center" id="pop-addFriend" style="bottom:0px;display:none;">
+            <div class="position">
+                <form onsubmit="addClientFriends();" class="form-clientMesa" id="form-clientMesaFriend" method="post" action="AddClientF.php">
+                <div class="contenido information">
+                    <div class="tope"><img src="images/ICONO_IOS_APP.png"></div>
+                    <hr>
+                    <p>Tu Amigo</p>
+                    <p>Escoge su ávatar para identificarle:</p>
+                    <ul class="list-avatar">
+                        <li><input class="select-profiles avatar1" type="radio" name="avatarF" value="avatar1" required></li>
+                        <li><input class="select-profiles avatar2" type="radio" name="avatarF" value="avatar2" required></li>
+                        <li><input class="select-profiles avatar3" type="radio" name="avatarF" value="avatar3" required></li>
+                        <li><input class="select-profiles avatar4" type="radio" name="avatarF" value="avatar4" required></li>
+                    </ul>
+                    <p>¿Cual es su nombre?</p>
+                    <input type="hidden" value="no" id="jefe_mesaF">
+                    <input autocomplete="off" type="text" placeholder="Su nombre" name="nombreFriend" id="nombreF" required>
+                    <p>¿Como prefieres realizar tu pago hoy?</p>
+                    <ul class="list-pagos">
+                        <li><input class="select-method method1" type="radio" name="methodF" value="method1" required></li>
+                        <li><input class="select-method method2" type="radio" name="methodF" value="method2" required></li>
+                        <li><input class="select-method method3" type="radio" name="methodF" value="method3" required></li>
+                        <li><input class="select-method method4" type="radio" name="methodF" value="method4" required></li>
+                    </ul>
+                </div>
+                <div class="col-12 sin-padding">
+                    <button type="submit" class="btn-fr">Agregar a tu mesa</button>
+                    <button onclick="popAddFriends();" type="reset" class="btn-fr delete">Cancelar</button>
+                </div>
+                </form>
+            </div>
+        </div>
+        <div class="fixed popup-share full text-center" id="popup-share" style="bottom:0px;display:none;">
+            <div class="col-12 position">
+                <div class="contenido">
+                    <div class="separadores">
+                        <img src="images/">
+                        <label>AirDrop. Tap to turn on WI-FI and Bluetooth to share width AirDrop.</label>
+                    </div>
+                    <div class="separadores">
+                        <ul class="redes-share">
+                            <li>
+                                <a class="icons"><i class="fab fa-facebook-messenger"></i></a>
+                                <a>Messenger</a>
+                            </li>
+                            <li>
+                                <a class="icons"><i class="far fa-comment"></i></a>
+                                <a>MAil</a>
+                            </li>
+                            <li>
+                                <a class="icons"><i class="far fa-bell"></i></a>
+                                <a>Reminders</a>
+                            </li>
+                            <li>
+                                <a class="icons"><i class="fas fa-sticky-note"></i></a>
+                                <a>Add to notes</a>
+                            </li>
+                            <li id="whatsapp">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="contenido sin-padding">
+                    <button onclick="opcionesCompartir();" type="button" class="btn-cancelar">Cancel</button>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="bottom">
+        <i id="prev" onclick="prevSection();" class="fas fa-angle-left" style="display:none;"></i>
+        <i id="next" onclick="nextWelcome();" class="fas fa-angle-right"></i>
+    </div>
+    
+    <div style="display:none;" class="respuestaClient">
+        
+    </div>
+    
+    <div class="" id="agregado" style="display:none;">
+        
+    </div>
+    
+    <div class="" id="respuestaFactura" style="display:none;">
+        
+    </div>
+    
+    <div class="" id="respuestaBilletera" style="display:none;">
+        
+    </div>
+    
+    <script>
+        function addMesa(){
+            event.preventDefault();
+            var nombreMesa = $("#nombreMesa").val();
+            $("#next").css("display","none");
+            $("#verificando").css("display","block");
+            $.ajax({
+                type: "POST",
+                url: "addMesa.php",
+                data: "nombreMesa="+nombreMesa,
+                success: function(resp){
+                    $('#agregado').html(resp);
+                }
+            });
+        }
+        function addClient(){
+            event.preventDefault();
+            var jefeMesa = $("#jefe_mesa").val();
+            var nombre = $("#nombre").val();
+            var idMesa = $("#id_mesa").val();
+            var metodo = $('input:radio[name=method]:checked').val()
+            var imagen = $('input:radio[name=avatar]:checked').val()
+            $.ajax({
+                type: "POST",
+                url: "addClient.php",
+                data: "nombre="+nombre+"&metodo="+metodo+"&imagen="+imagen+"&jefeMesa="+jefeMesa+"&idMesa="+idMesa,
+                success: function(resp){
+                    $('.respuestaClient').append(resp);
+                    $('.image-user').html("<div class=\"image-us "+imagen+"\"></div>");
+                }
+            });
+        }
+        function consultarFactura(){
+            var entrada = $("#entrada").val();
+            var plato = $("#plato").val();
+            var bebidas = $("#bebidas").val();
+            var postre = $("#postre").val();
+            var propina = $("#propina").val();
+            $.ajax({
+                type: "POST",
+                url: "addFactura.php",
+                data: "idUser="+idUser+"&idMesa="+idMesa+"&entrada="+entrada+"&plato="+plato+"&bebidas="+bebidas+"&postre="+postre+"&propina="+propina,
+                success: function(resp){
+                    $('#respuestaFactura').html(resp);
+                }
+            });
+        }
+        function contandoFactura(){
+            var intFactura = setInterval(function(){
+                consultarFactura();
+            },2000);
+        }
+        
+        var moneda = "no";
+        function valorMoneda(){
+            if(moneda=="no"){
+                moneda="si";
+            }else{
+                if(moneda=="si"){
+                    moneda="no";
+                }
+            }
+        }
+        
+        function consultarBilletera(){
+            var valor1 = $("#conteo1").val();
+            var valor2 = $("#conteo2").val();
+            var valor3 = $("#conteo3").val();
+            var valor4 = $("#conteo4").val();
+            var valor5 = $("#conteo5").val();
+            var valor6 = $("#conteo6").val();
+            var valor7 = $("#conteo7").val();
+            
+            var cantidad = (parseInt(valor1)+parseInt(valor2)+parseInt(valor3)+parseInt(valor4)+parseInt(valor5)+parseInt(valor6)+parseInt(valor7));
+            
+            $.ajax({
+                type: "POST",
+                url: "addBilletera.php",
+                data: "idUser="+idUser+"&idMesa="+idMesa+"&cantidad="+cantidad+"&moneda="+moneda,
+                success: function(resp){
+                    $('#respuestaBilletera').html(resp);
+                }
+            });
+        }
+        function contandoBilletera(){
+            var intBilletera = setInterval(function(){
+                consultarBilletera();
+            },2000);
+        }
+        
+        function addClientFriends(){
+            event.preventDefault();
+            var jefeMesa = $("#jefe_mesaF").val();
+            var nombre = $("#nombreF").val();
+            var idMesa = $("#id_mesa").val();
+            var metodo = $('input:radio[name=methodF]:checked').val()
+            var imagen = $('input:radio[name=avatarF]:checked').val()
+            $.ajax({
+                type: "POST",
+                url: "addClientF.php",
+                data: "nombre="+nombre+"&metodo="+metodo+"&imagen="+imagen+"&jefeMesa="+jefeMesa+"&idMesa="+idMesa,
+                success: function(resp){
+                    popAddFriends();
+                }
+            });
+        }
+        function consulta(){
+            $.ajax({
+                type: "POST",
+                url: "consulta.php",
+                data: "idMesa="+idMesa,
+                success: function(resp){
+                    $('#datagrid').html(resp);
+                }
+            });
+        }
+        function consultaAmigos(){
+            $.ajax({
+                type: "POST",
+                url: "consultarAmigos.php",
+                data: "idMesa="+idMesa+"&idUser="+idUser,
+                success: function(resp){
+                    $('#list-payup').html(resp);
+                }
+            });
+        }
+        function consultando(){
+            var cons = setInterval(function(){
+                consulta();
+            },2000);
+        }
+        
+        
+        
+        function sections(){
+            section = 2;
+            screen = 3;
+        }
+    </script>
+</body>
+</html>
